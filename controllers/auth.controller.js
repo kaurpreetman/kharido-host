@@ -9,7 +9,7 @@ const generateAccessToken = (userID) => {
 const setAccessTokenCookie = (res, token, maxAge = 60 * 60 * 1000) => {
   res.cookie('accessToken', token, {
     httpOnly: true,
-    secure: false, 
+    secure: true, 
     sameSite: 'Strict',
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
