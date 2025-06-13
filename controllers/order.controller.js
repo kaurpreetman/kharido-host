@@ -108,8 +108,8 @@ if (!user || !products?.length || !totalAmount || !address || !paymentMethod) {
   payment_method_types: ["card"],
   line_items,
   mode: "payment",
-  success_url: `${process.env.CLIENT_URL}/order-success/${user}/${newOrder._id}`,
-  cancel_url: `${process.env.CLIENT_URL}/checkout`,
+  success_url: `https://deluxe-tapioca-b0bf66.netlify.app/order-success/${user}/${newOrder._id}`,
+  cancel_url: `$https://deluxe-tapioca-b0bf66.netlify.app/checkout`,
 });
 
     res.status(201).json({ sessionId: session.id, order: newOrder });
