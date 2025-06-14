@@ -4,20 +4,22 @@ import Product from '../models/Product.model.js';
 export const addToCart = async (req, res) => {
   try {
     const user = req.user;
-    const { productId, size = null } = req.body;
+    const { productId, size } = req.body;
 
     if (!productId) {
       return res.status(400).json({ message: "Product ID is required" });
     }
 
+    const normalizedSize = size ?? null;
+
     const existingItem = user.cartItems.find(
-      (item) => item.product.toString() === productId && item.size === size
+      (item) => item.product.toString() === productId && item.size === normalizedSize
     );
 
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
-      user.cartItems.push({ product: productId, size, quantity: 1 });
+      user.cartItems.push({ product: productId, size: normalizedSize, quantity: 1 });
     }
 
     await user.save();
@@ -55,10 +57,16 @@ export const getCartProducts = async (req, res) => {
 export const updateQuantity = async (req, res) => {
   try {
     const user = req.user;
-    const { productId, size = null, quantity } = req.body;
+    const { productId, size, quantity } = req.body;
+
+    if (!productId || quantity === undefined) {
+      return res.status(400).json({ message: "Product ID and quantity are required" });
+    }
+
+    const normalizedSize = size ?? null;
 
     const item = user.cartItems.find(
-      (item) => item.product.toString() === productId && item.size === size
+      (item) => item.product.toString() === productId && item.size === normalizedSize
     );
 
     if (!item) {
@@ -67,7 +75,7 @@ export const updateQuantity = async (req, res) => {
 
     if (quantity === 0) {
       user.cartItems = user.cartItems.filter(
-        (item) => !(item.product.toString() === productId && item.size === size)
+        (item) => !(item.product.toString() === productId && item.size === normalizedSize)
       );
     } else {
       item.quantity = quantity;
@@ -85,17 +93,17 @@ export const updateQuantity = async (req, res) => {
 export const removeone = async (req, res) => {
   try {
     const user = req.user;
-    const { productId, size = null } = req.body;
+    const { productId, size } = req.body;
 
     if (!productId) {
       return res.status(400).json({ message: "Product ID is required" });
     }
 
-    const filteredCart = user.cartItems.filter(
-      (item) => !(item.product.toString() === productId && item.size === size)
-    );
+    const normalizedSize = size ?? null;
 
-    user.cartItems = filteredCart;
+    user.cartItems = user.cartItems.filter(
+      (item) => !(item.product.toString() === productId && item.size === normalizedSize)
+    );
 
     await user.save();
     res.json({ success: true, cartItems: user.cartItems });
