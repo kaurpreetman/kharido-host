@@ -116,8 +116,8 @@ export const removeone = async (req, res) => {
 // ✅ CLEAR CART
 export const clearCart = async (req, res) => {
   try {
-    const user = req.user;
-    user.cartItems = [];
+    await User.updateOne({ _id: req.user._id }, { $set: { cartItems: [] } });
+
     await user.save();
     res.json({ success: true, cartItems: [] });
   } catch (error) {
