@@ -7,7 +7,7 @@ export const getAdminStats = async (req, res) => {
     const totalUsers = await User.countDocuments();
     const totalProducts = await Product.countDocuments();
     const totalOrders = await Order.countDocuments();
-    const pendingOrders = await Order.countDocuments({ status: 'Pending' });
+    const pendingOrders = await Order.countDocuments({ status: 'pending' });
 
     return res.status(200).json({
       totalUsers,
