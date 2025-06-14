@@ -1,5 +1,5 @@
 import Product from '../models/Product.model.js';
-
+import User from '../models/user.model.js';
 // ✅ ADD TO CART
 export const addToCart = async (req, res) => {
   try {
@@ -116,9 +116,10 @@ export const removeone = async (req, res) => {
 // ✅ CLEAR CART
 export const clearCart = async (req, res) => {
   try {
+    
     await User.updateOne({ _id: req.user._id }, { $set: { cartItems: [] } });
 
-    await user.save();
+    
     res.json({ success: true, cartItems: [] });
   } catch (error) {
     console.error("Error in clearCart:", error.message);
