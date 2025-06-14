@@ -108,8 +108,8 @@ if (!user || !products?.length || !totalAmount || !address || !paymentMethod) {
   payment_method_types: ["card"],
   line_items,
   mode: "payment",
-  success_url: `https://guileless-sunshine-8a499f.netlify.app/order-success/${user}/${newOrder._id}`,
-  cancel_url: `https://guileless-sunshine-8a499f.netlify.app/checkout`,
+  success_url: `https://khaidoin.netlify.app/order-success/${user}/${newOrder._id}`,
+  cancel_url: `https://khaidoin.netlify.app/checkout`,
 });
 
     res.status(201).json({ sessionId: session.id, order: newOrder });

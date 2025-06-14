@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 
-const allowedOrigins = ['https://guileless-sunshine-8a499f.netlify.app','https://courageous-heliotrope-f1246e.netlify.app'];
+const allowedOrigins = ['https://khaidoin.netlify.app','https://courageous-heliotrope-f1246e.netlify.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
