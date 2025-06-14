@@ -5,7 +5,7 @@ import { protectRoute } from "../middleware/auth.middleware.js";
 
 router.get("/",protectRoute,getCartProducts);
 router.post("/add",protectRoute,addToCart);
-router.delete("/remove",protectRoute,removeone);
+router.delete("/removeone",protectRoute,removeone);
 router.put("/:id", protectRoute, updateQuantity);
 router.delete("/clear",protectRoute,clearCart);
 
